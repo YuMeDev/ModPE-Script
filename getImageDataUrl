@@ -1,0 +1,12 @@
+getImageDataFromUrl = function(url) {
+	try {
+		var con = new java.net.URL(url).openConnection();
+		con.setUseCaches(false);
+		con.setConnectTimeout(3000);
+		var bis = new java.io.BufferdInputStream(con.getInputStream());
+		return new android.graphics.BitmapFactory.decodeStream(bis);
+		bis.close();
+	} catch(err) {
+		print(err);
+	}
+}
