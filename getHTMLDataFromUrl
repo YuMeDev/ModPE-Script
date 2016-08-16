@@ -1,0 +1,23 @@
+getHTMLDataFromUrl = function(url) {
+	try {
+		var str = new java.lang.StringBuilder();
+		var con = new java.net.URL(url).openConnection();
+		
+		if(con != null) {
+			con.setConnectTimeout(3000);
+			con.setUseCaches(false);
+			var isr = new java.io.InputStreamReader(con.getInputStream());
+			var bfr = new java.io.BufferedReader(isr);
+			
+			while(true) {
+				if(bfr.readLine() == null) break;
+				str.append(bfr.readLine() + "\n");
+			}
+			bfr.close();
+			con.disconnect();
+		}
+		return str.toString();
+	} catch(err) {
+		print(err + err.lineNumber);
+	}
+}
